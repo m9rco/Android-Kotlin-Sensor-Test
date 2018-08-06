@@ -16,6 +16,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+       accelerometer()
+        proximity()
+
+    }
+
+    fun accelerometer(){
+
         var sManager=getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         var sensor=sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
@@ -23,13 +30,39 @@ class MainActivity : AppCompatActivity() {
         sManager.registerListener(object :SensorEventListener{
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 
-    }
+            }
 
             override fun onSensorChanged(event: SensorEvent?) {
 
                 var values:FloatArray = event!!.values
-                textView.text = values[0].toString()
-                textView2.text = values[1].toString()
+                textView.text = "X: " +values[0].toString()
+                textView2.text ="Y: "+ values[1].toString()
+
+            }
+
+
+        },sensor,SensorManager.SENSOR_DELAY_NORMAL)
+
+
+    }
+
+    fun proximity(){
+
+
+        var sManager=getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        var sensor=sManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
+
+        sManager.registerListener(object :SensorEventListener{
+            override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+
+            }
+
+            override fun onSensorChanged(event: SensorEvent?) {
+
+                var values:FloatArray = event!!.values
+                textView5.text = values[0].toString()
+
 
             }
 
@@ -37,4 +70,6 @@ class MainActivity : AppCompatActivity() {
         },sensor,SensorManager.SENSOR_DELAY_NORMAL)
 
     }
+
+
 }
