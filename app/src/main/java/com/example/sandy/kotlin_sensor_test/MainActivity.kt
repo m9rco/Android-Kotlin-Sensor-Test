@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
        accelerometer()
         proximity()
+        gyroscope()
 
     }
 
@@ -68,6 +69,32 @@ class MainActivity : AppCompatActivity() {
 
 
         },sensor,SensorManager.SENSOR_DELAY_NORMAL)
+
+    }
+
+    fun gyroscope(){
+
+        var sManager=getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        var sensor=sManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)  //Sensor type
+
+        sManager.registerListener(object :SensorEventListener{
+            override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+
+            }
+
+            override fun onSensorChanged(event: SensorEvent?) {
+
+                var values:FloatArray = event!!.values
+                textView7.text = "X: " +values[0].toString()
+                textView8.text ="Y: "+ values[1].toString()
+
+
+            }
+
+
+        },sensor,SensorManager.SENSOR_DELAY_NORMAL)
+
 
     }
 
